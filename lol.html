@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Konwerter temperatur</title>
+    <style>
+        input {
+            margin: 5px;
+            padding: 5px;
+            width: 150px;
+        }
+        .wynik {
+            font-family: sans-serif;
+            font-size: 14px;
+            margin-left: 10px;
+            color: #333;
+        }
+        .blad {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Konwerter temperatur</h2>
+
+    <label>°Celsjusza: <input type="text" id="cel" /></label>
+    <div id="wynik-cel" class="wynik"></div><br>
+
+    <label>°Fahrenheita: <input type="text" id="fah" /></label>
+    <div id="wynik-fah" class="wynik"></div><br>
+
+    <label>Kelvina: <input type="text" id="kel" /></label>
+    <div id="wynik-kel" class="wynik"></div><br>
+    <p>Zero bezwzględne:</p>
+    <p>Stopnie Celsjusza: -273,15 °C</p>
+    <p>Stopnie Fahrenheita: -459,67 °F</p>
+    <p>Stopnie Kelvina: 0 K </p>
+    <script>
+        const cel = document.getElementById("cel");
+        const fah = document.getElementById("fah");
+        const kel = document.getElementById("kel");
+
+        const wynikCel = document.getElementById("wynik-cel");
+        const wynikFah = document.getElementById("wynik-fah");
+        const wynikKel = document.getElementById("wynik-kel");
+
+        let aktywny = null;
+
+        function ustawAktywny(inp) {
+            aktywny = inp;
+        }
+
+        function aktualizujZCel(c) {
+            const f = c * 1.8 + 32;
+            const k = c + 273.15;
+
+            if (k < 0) {
+                fah.value = "nie ma rozwiązania";
+                kel.value = "nie ma rozwiązania";
+                wynikCel.innerHTML = `<span class="blad">nie ma rozwiązania (Kelvin &lt; 0)</span>`;
+                wynikFah.innerHTML = "";
+                wynikKel.innerHTML = "";
+                return;
+            }
+
+            fah.value = f.toFixed(2);
+            kel.value = k.toFixed(2);
+
+            wynikCel.innerHTML = `°F = ${c} × 1.8 + 32 = ${f.toFixed(2)}<br>K = ${c} + 273.15 = ${k.toFixed(2)}`;
+            wynikFah.innerHTML = "";
+            wynikKel.innerHTML = "";
+        }
+
+        function aktualizujZFah(f) {
+            const c = (f - 32) / 1.8;
+            const k = c + 273.15;
+
+            if (k < 0) {
+                cel.value = "nie ma rozwiązania";
+                kel.value = "nie ma rozwiązania";
+                wynikFah.innerHTML = `<span class="blad">nie ma rozwiązania (Kelvin &lt; 0)</span>`;
+                wynikCel.innerHTML = "";
+                wynikKel.innerHTML = "";
+                return;
+            }
+
+            cel.value = c.toFixed(2);
+            kel.value = k.toFixed(2);
+
+            wynikFah.innerHTML = `°C = (${f} - 32) / 1.8 = ${c.toFixed(2)}<br>K = ${c.toFixed(2)} + 273.15 = ${k.toFixed(2)}`;
+            wynikCel.innerHTML = "";
+            wynikKel.innerHTML = "";
+        }
+
+        function aktualizujZKel(k) {
+            const c = k - 273.15;
+            const f = c * 1.8 + 32;
+
+            if (k < 0) {
+                cel.value = "nie ma rozwiązania";
+                fah.value = "nie ma rozwiązania";
+                wynikKel.innerHTML = `<span class="blad">nie ma rozwiązania (Kelvin &lt; 0)</span>`;
+                wynikCel.innerHTML = "";
+                wynikFah.innerHTML = "";
+                return;
+            }
+
+            cel.value = c.toFixed(2);
+            fah.value = f.toFixed(2);
+
+            wynikKel.innerHTML = `°C = ${k} - 273.15 = ${c.toFixed(2)}<br>°F = ${c.toFixed(2)} × 1.8 + 32 = ${f.toFixed(2)}`;
+            wynikCel.innerHTML = "";
+            wynikFah.innerHTML = "";
+        }
+
+        cel.addEventListener("input", function () {
+            if (aktywny !== cel) return;
+            const c = parseFloat(cel.value);
+            if (isNaN(c)) {
+                fah.value = "";
+                kel.value = "";
+                wynikCel.innerHTML = "";
+                wynikFah.innerHTML = "";
+                wynikKel.innerHTML = "";
+                return;
+            }
+            aktualizujZCel(c);
+        });
+
+        fah.addEventListener("input", function () {
+            if (aktywny !== fah) return;
+            const f = parseFloat(fah.value);
+            if (isNaN(f)) {
+                cel.value = "";
+                kel.value = "";
+                wynikCel.innerHTML = "";
+                wynikFah.innerHTML = "";
+                wynikKel.innerHTML = "";
+                return;
+            }
+            aktualizujZFah(f);
+        });
+
+        kel.addEventListener("input", function () {
+            if (aktywny !== kel) return;
+            const k = parseFloat(kel.value);
+            if (isNaN(k)) {
+                cel.value = "";
+                fah.value = "";
+                wynikCel.innerHTML = "";
+                wynikFah.innerHTML = "";
+                wynikKel.innerHTML = "";
+                return;
+            }
+            aktualizujZKel(k);
+        });
+
+        [cel, fah, kel].forEach(inp => {
+            inp.addEventListener("focus", () => ustawAktywny(inp));
+        });
+    </script>
+</body>
+</html>
