@@ -1,0 +1,43 @@
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+             display: flex;
+        justify-content: center; 
+         align-items: center;    
+         font-family: Arial, sans-serif;
+        }
+        input {
+            margin: 5px;
+            padding: 5px;
+            width: 150px;
+        }
+        .wynik {
+            font-family: sans-serif;
+            font-size: 14px;
+            margin-left: 10px;
+            color: #333;
+        }
+        .blad {
+            color: red;
+            font-weight: bold;
+        }
+      #all {
+ background: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    min-width: 300px;
+            }
+        @media (max-width: 768px) {
+#all {
+ background: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    min-width: 300px;
+        }
+    }

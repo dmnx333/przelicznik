@@ -1,27 +1,12 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <title>Konwerter temperatur</title>
-    <style>
-        input {
-            margin: 5px;
-            padding: 5px;
-            width: 150px;
-        }
-        .wynik {
-            font-family: sans-serif;
-            font-size: 14px;
-            margin-left: 10px;
-            color: #333;
-        }
-        .blad {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
+ <div id="all">
     <h2>Konwerter temperatur</h2>
 
     <label>°Celsjusza: <input type="text" id="cel" /></label>
@@ -36,6 +21,7 @@
     <p>Stopnie Celsjusza: -273,15 °C</p>
     <p>Stopnie Fahrenheita: -459,67 °F</p>
     <p>Stopnie Kelvina: 0 K </p>
+ </div>
     <script>
         const cel = document.getElementById("cel");
         const fah = document.getElementById("fah");
@@ -162,3 +148,4 @@
     </script>
 </body>
 </html>
+
